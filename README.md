@@ -1,11 +1,16 @@
 # Getting Started with Simple Login with Auth by Ref.si
 
-## FE
+## Installation guide
+### FE
 - `npm install`
 - `npn start`
-## BE
+### BE
 - `cd backend`
 - `npm install`
 - `node server.js`
-## DB
+### DB
  - Create MySQL Database: `nodejs_react_simple_login_db`
+
+ ## Start App Guide
+ - `npm start`
+ - `npm run server`
