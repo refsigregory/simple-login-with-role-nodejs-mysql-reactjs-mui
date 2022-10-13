@@ -1,0 +1,2 @@
+npm init
+npm install express sequelize mysql2 cors jsonwebtoken bcryptjs --save
