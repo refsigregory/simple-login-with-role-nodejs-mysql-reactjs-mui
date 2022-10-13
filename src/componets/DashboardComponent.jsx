@@ -64,7 +64,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-export function DashboardComponent ({component}) {
+export function DashboardComponent ({title = '', component}) {
   const replace = useNavigate();
 
   const [open, setOpen] = React.useState(true);
@@ -105,7 +105,7 @@ export function DashboardComponent ({component}) {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              {title}
             </Typography>
             <IconButton color="inherit" onClick={handleLogout}>
               <LogoutIcon />

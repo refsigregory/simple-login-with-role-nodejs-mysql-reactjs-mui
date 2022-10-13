@@ -1,7 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Dashboard from './features/dashboard/Dashboard';
+import Transaction from './features/transaction/Transaction';
+import Users from './features/users/Users';
 import Login from './features/login/Login';
 
 function App() {
@@ -18,18 +20,6 @@ function App() {
       </Routes>
     </Router>
   );
-}
-
-function Home() {
-  return <h2>Home</h2>;
-}
-
-function Transaction() {
-  return <h2>Transaction</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
 }
 
 export default App;
