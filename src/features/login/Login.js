@@ -11,20 +11,42 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Copyright } from '../../componets/Copyrights';
 import { useNavigate } from 'react-router-dom';
+import { authLogin } from '../../services/auth.service';
 
 const theme = createTheme();
 
 export default function Login() {
   const replace = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
+    const dataLogin = {
+      username: data.get('username'),
       password: data.get('password'),
-    });
-    replace('/dashboard')
+    };
+    const reqLogin = await authLogin({
+      username: dataLogin.username,
+      password: dataLogin.password
+    })
+    if (!reqLogin.error && reqLogin.error !== null) {
+      if (reqLogin.error) {    
+        if (reqLogin.message) {
+          alert(reqLogin.message);
+        } else {
+          alert('Something wrong!');
+        }
+      } else { 
+        console.log(reqLogin.data);
+        replace('/dashboard')
+      }
+    } else {
+      if (reqLogin.message) {
+        alert(reqLogin.message);
+      } else {
+        alert('Failed');
+      }
+    }
   };
 
   return (
@@ -66,10 +88,10 @@ export default function Login() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
                 autoFocus
               />
               <TextField
