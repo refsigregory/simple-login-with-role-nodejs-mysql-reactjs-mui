@@ -3,8 +3,16 @@ const cors = require("cors");
 
 const app = express();
 
+const db = require("./app/models");
+
+const User = db.user;
+const Role = db.role;
+const Op = db.Sequelize.Op;
+
+var bcrypt = require("bcryptjs");
+
 var corsOptions = {
-  origin: "http://localhost:3001"
+  origin: "http://localhost:3000"
 };
 
 app.use(cors(corsOptions));
@@ -15,13 +23,13 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-// database
-const db = require("./app/models");
-const Role = db.role;
-
 //db.sequelize.sync();
 // force: true will drop the table if it already exists
-db.sequelize.sync({force: true}).then(() => {
+/* db.sequelize.sync({force: true}).then(() => {
+   console.log('Drop and Resync Database with { force: true }');
+   initial();
+}); */
+db.sequelize.sync({force: false}).then(() => {
    console.log('Drop and Resync Database with { force: true }');
    initial();
 });
@@ -42,18 +50,42 @@ app.listen(PORT, () => {
 });
 
 function initial() {
-  Role.create({
-    id: 1,
-    name: "user"
+  // Create Role
+  Role.findAll().then(roles => {
+    if (roles.length === 0) {
+      Role.create({
+        id: 1,
+        name: "admin"
+      });
+    
+      Role.create({
+        id: 2,
+        name: "user"
+      });
+    }
   });
- 
-  Role.create({
-    id: 2,
-    name: "moderator"
-  });
- 
-  Role.create({
-    id: 3,
-    name: "admin"
-  });
+
+  // Create Admin
+  User.findOne({
+    where: {
+      username: 'admin',
+    }
+  })
+    .then(user => {
+     if (!user) {
+        User.create({
+          username: 'admin',
+          email: 'admin@localhost.local',
+          password: bcrypt.hashSync('password', 8)
+        })
+          .then(user => {
+            user.setRoles(1).then(() => {
+              console.log("User admin was added successfully!");
+            });
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    })
 }

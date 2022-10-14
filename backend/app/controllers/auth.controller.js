@@ -25,18 +25,18 @@ exports.signup = (req, res) => {
           }
         }).then(roles => {
           user.setRoles(roles).then(() => {
-            res.send({ message: "User was registered successfully!" });
+            res.send({ code: 200, error: false, message: "User was registered successfully!" });
           });
         });
       } else {
         // user role = 1
         user.setRoles([1]).then(() => {
-          res.send({ message: "User was registered successfully!" });
+          res.send({ code: 200, error: false, message: "User was registered successfully!" });
         });
       }
     })
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      res.status(500).send({ code: 500, error: true, message: err.message });
     });
 };
 
@@ -48,7 +48,7 @@ exports.signin = (req, res) => {
   })
     .then(user => {
       if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+        return res.status(200).send({ code: 404, error: true, message: "User Not found." });
       }
 
       var passwordIsValid = bcrypt.compareSync(
@@ -57,7 +57,9 @@ exports.signin = (req, res) => {
       );
 
       if (!passwordIsValid) {
-        return res.status(401).send({
+        return res.status(200).send({
+          code: 401,
+          error: true, 
           accessToken: null,
           message: "Invalid Password!"
         });
@@ -73,15 +75,19 @@ exports.signin = (req, res) => {
           authorities.push("ROLE_" + roles[i].name.toUpperCase());
         }
         res.status(200).send({
+          code: 200,
+          error: false, 
+         data: {
           id: user.id,
           username: user.username,
           email: user.email,
           roles: authorities,
           accessToken: token
+         },
         });
       });
     })
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      res.status(200).send({ code: 500, error: true, message: err.message });
     });
 };
