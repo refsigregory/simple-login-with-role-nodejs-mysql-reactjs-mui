@@ -1,10 +1,9 @@
 import axios from "axios";
-
-const baseURL = "http://localhost:3001/api/";
+import { apiURL } from "../app/config";
 
 export const authLogin = async ({username, password}) => {
     return await axios
-      .post(baseURL + 'auth/signin', {
+      .post(apiURL + 'auth/signin', {
         username: username,
         password: password,
       })
