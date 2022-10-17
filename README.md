@@ -15,3 +15,11 @@ Simple Login with Role Access by Ref.si
  ## Start App Guide
  - `npm start`
  - `npm run server`
+
+ # Starter User (Auto Generated)
+ ## Admin:
+ - username: admin
+ - password: password
+ ## User
+ - username: user
+ - password: password
