@@ -9,5 +9,8 @@ module.exports = function(app) {
     next();
   });
 
+  /**
+   * Routes: Get All User
+   */
   app.get("/api/users", controller.userAll);
 };

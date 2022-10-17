@@ -7,7 +7,6 @@ import Users from './features/users/Users';
 import Login from './features/login/Login';
 
 function App() {
- 
   return (
     <Router>
       <Routes>

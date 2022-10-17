@@ -1,6 +1,9 @@
 import axios from "axios";
 import { apiURL } from "../app/config";
 
+/**
+ * Users Service Class
+ */
 class UsersService {
     getAll() {
       return axios.get(apiURL + "users");

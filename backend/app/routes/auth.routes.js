@@ -10,6 +10,9 @@ module.exports = function(app) {
     next();
   });
 
+  /**
+   * Routes: Register or Add User
+   */
   app.post(
     "/api/auth/signup",
     [
@@ -19,5 +22,8 @@ module.exports = function(app) {
     controller.signup
   );
 
+  /**
+   * Routes: User Login
+   */
   app.post("/api/auth/signin", controller.signin);
 };

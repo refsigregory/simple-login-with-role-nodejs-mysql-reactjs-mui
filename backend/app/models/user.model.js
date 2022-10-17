@@ -1,3 +1,9 @@
+/**
+ * Users Model
+ * @param {*} sequelize 
+ * @param {*} Sequelize 
+ * @returns sequelize object for fetch users data
+ */
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define("users", {
       username: {

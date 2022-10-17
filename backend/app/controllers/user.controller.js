@@ -1,8 +1,11 @@
-const { ROLES } = require("../models");
 const db = require("../models");
 const User = db.user;
-const Role = db.role;
 
+/**
+ * Get Users Data
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.userAll = (req, res) => {
   User.findAll({
     include: [
@@ -40,20 +43,4 @@ exports.userAll = (req, res) => {
     .catch(err => {
       res.status(200).send({ code: 500, error: true, message: err.message });
     });
-};
-
-exports.allAccess = (req, res) => {
-  res.status(200).send("Public Content.");
-};
-
-exports.userBoard = (req, res) => {
-  res.status(200).send("User Content.");
-};
-
-exports.adminBoard = (req, res) => {
-  res.status(200).send("Admin Content.");
-};
-
-exports.moderatorBoard = (req, res) => {
-  res.status(200).send("Moderator Content.");
 };

@@ -1,3 +1,9 @@
+/**
+ * Role Model
+ * @param {*} sequelize 
+ * @param {*} Sequelize 
+ * @returns squelize object for fetch roles data
+ */
 module.exports = (sequelize, Sequelize) => {
     const Role = sequelize.define("roles", {
       id: {

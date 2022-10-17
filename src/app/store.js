@@ -4,8 +4,8 @@ import authReducer from '../features/login/authSlice';
 
 export const store = configureStore({
   reducer: {
-    authData: authReducer,
-    users: usersReducer
+    authData: authReducer, // store for auth
+    users: usersReducer // store for users data
   },
   devTools: true,
 });
