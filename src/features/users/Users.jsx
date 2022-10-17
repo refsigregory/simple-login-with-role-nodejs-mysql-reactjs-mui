@@ -61,7 +61,7 @@ function Users(props) {
   useEffect(() => {
     // Get data from Store
     props.retrieveUsers();
-  }, []);
+  });
 
   return <DashboardComponent 
           title="Users"
