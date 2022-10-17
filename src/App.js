@@ -16,9 +16,19 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/transaction" element={<Transaction />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/access-denied" element={<AccessDenied />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
+}
+
+function AccessDenied() {
+  return <>Access Denied!</>;
+}
+
+function NotFound() {
+  return <>Not Found!</>;
 }
 
 export default App;

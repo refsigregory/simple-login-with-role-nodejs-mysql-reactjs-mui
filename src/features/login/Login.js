@@ -1,4 +1,9 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { authLogin } from '../../services/auth.service';
+import { useDispatch } from 'react-redux';
+import { setAuth } from './authSlice';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,13 +15,15 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Copyright } from '../../componets/Copyrights';
-import { useNavigate } from 'react-router-dom';
-import { authLogin } from '../../services/auth.service';
 
 const theme = createTheme();
 
 export default function Login() {
+  const [showErrorUsername, setShowErrorUsername] = React.useState('');
+  const [showErrorPassword, setShowErrorPassword] = React.useState('');
+
   const replace = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,6 +32,18 @@ export default function Login() {
       username: data.get('username'),
       password: data.get('password'),
     };
+    setShowErrorUsername('')
+    setShowErrorPassword('')
+    if (!dataLogin.username || !dataLogin.password) {
+      if (!dataLogin.username) {
+        setShowErrorUsername('Please insert your Username');
+      }
+      if (!dataLogin.password) {
+        setShowErrorPassword('Please insert your Password');
+      }
+      return;
+    }
+
     const reqLogin = await authLogin({
       username: dataLogin.username,
       password: dataLogin.password
@@ -37,7 +56,8 @@ export default function Login() {
           alert('Something wrong!');
         }
       } else { 
-        console.log(reqLogin.data);
+        dispatch(setAuth(reqLogin.data));
+        localStorage.setItem('authData', JSON.stringify(reqLogin.data))
         replace('/dashboard')
       }
     } else {
@@ -49,6 +69,8 @@ export default function Login() {
     }
   };
 
+  var errorUsername = showErrorUsername ? { error: true } : {};
+  var errorPassword = showErrorPassword ? { error: true } : {};
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
@@ -93,6 +115,8 @@ export default function Login() {
                 name="username"
                 autoComplete="username"
                 autoFocus
+                helperText={showErrorUsername}
+                {...errorUsername}
               />
               <TextField
                 margin="normal"
@@ -102,7 +126,9 @@ export default function Login() {
                 label="Password"
                 type="password"
                 id="password"
+                helperText={showErrorPassword}
                 autoComplete="current-password"
+                {...errorPassword}
               />
               <Button
                 type="submit"

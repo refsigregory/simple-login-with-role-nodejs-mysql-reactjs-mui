@@ -1,4 +1,6 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
@@ -9,6 +11,20 @@ import { Copyright } from '../../componets/Copyrights';
 import { DashboardComponent } from '../../componets/DashboardComponent';
 
 export default function Dashboard() {
+  const replace = useNavigate();
+  const [authData] = useState(
+    JSON.parse(localStorage.getItem('authData')) || false
+  );
+
+  useEffect(() => {
+    /**
+     * Check Authentication
+     */
+    if (!authData) {
+      replace('/login');
+    }
+  });
+
   return <DashboardComponent 
           title="Dashboard"
           component={

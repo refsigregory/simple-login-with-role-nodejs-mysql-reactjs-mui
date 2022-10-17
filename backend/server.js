@@ -23,22 +23,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //db.sequelize.sync();
-// force: true will drop the table if it already exists
-/* db.sequelize.sync({force: true}).then(() => {
-   console.log('Drop and Resync Database with { force: true }');
-   initial();
-}); */
 db.sequelize.sync({force: false}).then(() => {
-   console.log('Drop and Resync Database with { force: true }');
    initial();
 });
 
-// simple route
+/**
+ * Routes
+ */
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to simple login with auth." });
 });
-
-// routes
+// other routes
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 
@@ -64,6 +59,10 @@ function initial() {
     }
   });
 
+  /**
+   * Auto Generate User every start application
+   * Disable if not needed
+   */
   // Create Admin
   User.findOne({
     where: {
@@ -87,4 +86,27 @@ function initial() {
           });
       }
     })
+    // Create User
+    User.findOne({
+      where: {
+        username: 'user',
+      }
+    })
+      .then(user => {
+       if (!user) {
+          User.create({
+            username: 'user',
+            email: 'user@localhost.local',
+            password: bcrypt.hashSync('password', 8)
+          })
+            .then(user => {
+              user.setRoles(2).then(() => {
+                console.log("User was added successfully!");
+              });
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }
+      })
 }

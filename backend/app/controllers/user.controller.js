@@ -1,22 +1,32 @@
+const { ROLES } = require("../models");
 const db = require("../models");
 const User = db.user;
+const Role = db.role;
 
 exports.userAll = (req, res) => {
-  User.findAll()
-    .then(users => {
+  User.findAll({
+    include: [
+     db.role
+    ],
+  })
+    .then(async users => {
       if (!users) {
         return res.status(200).send({ code: 404, error: true, message: "No Data" });
       }
 
       let results = []
-      users.forEach((row) => {
+      await users.forEach((row) => {
+        let authorities = []
+        for (let i = 0; i < row.roles.length; i++) {
+          authorities.push("" + row.roles[i].name.toUpperCase());
+        }
         results = [
           ...results,
           {
             id: row.id,
             username: row.username,
             email: row.email,
-            role: '',
+            role: authorities
           }
         ]
       });

@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
 import usersReducer from '../features/users/usersSlice';
+import authReducer from '../features/login/authSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer, // TODO: delete
+    authData: authReducer,
     users: usersReducer
   },
   devTools: true,

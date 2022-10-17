@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
@@ -7,8 +7,30 @@ import Paper from '@mui/material/Paper';
 
 import { Copyright } from '../../componets/Copyrights';
 import { DashboardComponent } from '../../componets/DashboardComponent';
+import { useNavigate } from 'react-router-dom';
 
 export default function Transaction() {
+  const replace = useNavigate();
+  const [authData] = useState(
+    JSON.parse(localStorage.getItem('authData')) || false
+  );
+
+  useEffect(() => {
+    /**
+     * Check Authentication
+     */
+    if (authData) {
+      /**
+       * Set Role Access
+       */
+      if (!authData.roles.includes('ROLE_ADMIN') && !authData.roles.includes('ROLE_USER')) {
+        replace('/access-denied');
+      }
+    } else {
+      replace('/login');
+    }
+  });
+
   return <DashboardComponent 
             title="Transaction"
             component={

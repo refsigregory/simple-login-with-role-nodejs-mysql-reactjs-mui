@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { connect } from "react-redux";
 import {
   retrieveUsers,
@@ -36,6 +37,26 @@ const columns = [
 
 function Users(props) {
   const { users } = props;
+  const replace = useNavigate();
+  const [authData] = useState(
+    JSON.parse(localStorage.getItem('authData')) || false
+  );
+
+  useEffect(() => {
+    /**
+     * Check Authentication
+     */
+    if (authData) {
+      /**
+       * Set Role Access
+       */
+      if (!authData.roles.includes('ROLE_ADMIN')) {
+        replace('/access-denied');
+      }
+    } else {
+      replace('/login');
+    }
+  });
 
   useEffect(() => {
     props.retrieveUsers();
