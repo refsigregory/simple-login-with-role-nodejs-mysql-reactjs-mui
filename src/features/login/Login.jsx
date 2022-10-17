@@ -44,28 +44,32 @@ export default function Login() {
       return;
     }
 
-    const reqLogin = await authLogin({
-      username: dataLogin.username,
-      password: dataLogin.password
-    })
-    if (!reqLogin.error && reqLogin.error !== null) {
-      if (reqLogin.error) {    
+    try {
+      const reqLogin = await authLogin({
+        username: dataLogin.username,
+        password: dataLogin.password
+      })
+      if (!reqLogin.error && reqLogin.error !== null) {
+        if (reqLogin.error) {    
+          if (reqLogin.message) {
+            alert(reqLogin.message);
+          } else {
+            alert('Something wrong!');
+          }
+        } else { 
+          dispatch(setAuth(reqLogin.data));
+          localStorage.setItem('authData', JSON.stringify(reqLogin.data))
+          replace('/dashboard')
+        }
+      } else {
         if (reqLogin.message) {
           alert(reqLogin.message);
         } else {
-          alert('Something wrong!');
+          alert('Failed');
         }
-      } else { 
-        dispatch(setAuth(reqLogin.data));
-        localStorage.setItem('authData', JSON.stringify(reqLogin.data))
-        replace('/dashboard')
       }
-    } else {
-      if (reqLogin.message) {
-        alert(reqLogin.message);
-      } else {
-        alert('Failed');
-      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

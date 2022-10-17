@@ -3,6 +3,9 @@
 - Run `npm install`
 - Run `node server.js`
 
+# Test
+- `npm test`
+
 # Create New User
 `http://localhost:3001/api/auth/signup`
 

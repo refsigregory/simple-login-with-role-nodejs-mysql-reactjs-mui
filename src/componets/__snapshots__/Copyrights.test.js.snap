@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<p
+  className="MuiTypography-root MuiTypography-body2 MuiTypography-alignCenter css-1vl95ex-MuiTypography-root"
+>
+  Copyright © 
+  <a
+    className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1cghntr-MuiTypography-root-MuiLink-root"
+    href="https://ref.si/"
+    onBlur={[Function]}
+    onFocus={[Function]}
+  >
+    My Website
+  </a>
+   
+  2022
+  .
+</p>
+`;

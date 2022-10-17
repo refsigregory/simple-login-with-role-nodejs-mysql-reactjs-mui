@@ -146,7 +146,7 @@ export function DashboardComponent ({title = '', component}) {
               </ListItemButton>
             </Link>
             {
-              authData.roles.includes('ROLE_ADMIN') &&
+              authData.roles?.includes('ROLE_ADMIN') &&
               <Link href="/transaction" color="inherit" underline="none">
                 <ListItemButton>
                   <ListItemIcon>
@@ -157,7 +157,7 @@ export function DashboardComponent ({title = '', component}) {
               </Link>
             }
             {
-              authData.roles.includes('ROLE_ADMIN') || authData.roles.includes('ROLE_USER') ?
+              authData.roles?.includes('ROLE_ADMIN') || authData.roles?.includes('ROLE_USER') ?
               <Link href="/users" color="inherit" underline="none">
               <ListItemButton>
                 <ListItemIcon>

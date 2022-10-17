@@ -24,7 +24,7 @@
     "start": "react-scripts start",
     "server": "node backend/server.js",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -44,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-test-renderer": "^18.2.0"
   }
 }

@@ -16,6 +16,9 @@ Simple Login with Role Access by Ref.si
  - `npm start`
  - `npm run server`
 
+ ## Test
+ - `npm test`
+
  # Starter User (Auto Generated)
  ## Admin:
  - username: admin
