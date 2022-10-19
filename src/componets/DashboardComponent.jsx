@@ -146,7 +146,7 @@ export function DashboardComponent ({title = '', component}) {
               </ListItemButton>
             </Link>
             {
-              authData.roles?.includes('ROLE_ADMIN') &&
+              authData.roles?.includes('ROLE_ADMIN') || authData.roles?.includes('ROLE_USER') ?
               <Link href="/transaction" color="inherit" underline="none">
                 <ListItemButton>
                   <ListItemIcon>
@@ -155,9 +155,11 @@ export function DashboardComponent ({title = '', component}) {
                   <ListItemText primary="Orders" />
                 </ListItemButton>
               </Link>
+              :
+              ''
             }
             {
-              authData.roles?.includes('ROLE_ADMIN') || authData.roles?.includes('ROLE_USER') ?
+              authData.roles?.includes('ROLE_ADMIN') &&
               <Link href="/users" color="inherit" underline="none">
               <ListItemButton>
                 <ListItemIcon>
@@ -166,8 +168,6 @@ export function DashboardComponent ({title = '', component}) {
                 <ListItemText primary="Users" />
               </ListItemButton>
               </Link>
-              :
-              ''
             }
           </List>
         </Drawer>
