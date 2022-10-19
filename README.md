@@ -18,9 +18,15 @@ Manual Install:
 - `npm install`
 - `npn start`
 
- ## Start App Guide
+ ## Start App
+ Docker:
+- Run `docker-compose up -d`
+- Open: `http://localhost:3000`
+
+ Manual:
  - `npm start`
  - `npm run server`
+ - Open: `http://localhost:3000`
 
  ## Test
  - `npm test`
