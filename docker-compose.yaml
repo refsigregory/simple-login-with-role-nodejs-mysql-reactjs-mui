@@ -12,10 +12,10 @@ services:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
     volumes:
       - db:/var/lib/mysql
-  app:
+  backend:
     depends_on:
       - mysqldb
-    build: .
+    build: ./backend
     restart: unless-stopped
     env_file: ./.env
     ports:
@@ -28,6 +28,15 @@ services:
       - DB_PORT=$MYSQLDB_DOCKER_PORT
     stdin_open: true
     tty: true
-
+  app:
+    depends_on:
+      - backend
+    build: .
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
+    stdin_open: true
+    tty: true
 volumes: 
   db:

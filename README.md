@@ -1,7 +1,13 @@
 # Getting Started
 Simple Login with Role Access by Ref.si
 ## Installation guide
+Docker:
+- Run `docker-compose up -d`
+- Open: `localhost:3000`
+
+Manual Install:
 ### DB
+ - Update MySQL config in `/backend/app/config/db.config.js` 
  - Create MySQL Database: `nodejs_react_simple_login_db`
 ### BE
 - `cd backend`
